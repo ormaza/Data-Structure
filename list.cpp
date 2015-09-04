@@ -37,7 +37,16 @@ void busca(Node* lista,int valor)
 
 void exclui(Node* lista,int valor)
 {
-    //A SER IMPLEMENTADO
+    if(lista->data==valor)
+    {
+        lista->data=lista->next->data;
+        lista->next=lista->next->next;
+        cout<<"Item excluido"<<endl;
+    }
+    else
+    {
+        exclui(lista->next,valor);
+    }
 }
 
 int main()
@@ -58,5 +67,7 @@ int main()
     add(lista,3);//adiciona um nó
     print(lista);//imprime novamente
     busca(lista,2); //busca na lista
+    exclui(lista,2); //exclui o item de valor 2 da lista
+    print(lista); //reimprime a lista
     return 0;
 }
