@@ -3,7 +3,6 @@ using namespace std;
 
 void print(vector<int> left, int p, vector<int> right)
 {
-    vector<int> out;
     for(int i=0;i<left.size();i++) cout<<left[i]<<" ";
     cout<<p<<" ";
     for(int i=0;i<right.size();i++) cout<<right[i]<<" ";
@@ -28,7 +27,6 @@ void quickSort(vector <int> &arr) {
     for(int i=0;i<left.size();i++) arr.push_back(left[i]);
     arr.push_back(p);
     for(int i=0;i<right.size();i++) arr.push_back(right[i]);
-
 }
 
 int main()
