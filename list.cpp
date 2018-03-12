@@ -8,30 +8,45 @@ struct Node
      struct Node *next;
   };
 
-void print(Node* lista)
+void print(Node* head)
 {
-    cout<<lista->data<<endl;
-    if(lista->next!=NULL)
+    cout<<head->data;
+    if(head->next!=NULL)
     {
-        print(lista->next);
+        cout<<"->";
+        print(head->next);
     }
 }
 
-void add(Node* lista,int valor)
+int length(Node* head)
 {
-    if(lista->next!=NULL) add(lista->next,valor);
+    if(head!=NULL) return 1+length(head->next);
+    else return 0;
+}
+
+void add(Node* head,int data)
+{
+    if(head->next!=NULL) add(head->next,data);
     else{
-    Node* ele;
-    ele->data=valor;
+    Node* ele = new Node;
+    ele->data=data;
     ele->next=NULL;
-    lista->next=ele;}
+    head->next=ele;}
+}
+
+Node* newHead(Node* head,int data)
+{
+    Node* ele = new Node;
+    ele->data=data;
+    ele->next=head;
+    return ele;
 }
 
 void busca(Node* lista,int valor)
 {
     if(lista->data!=valor && lista->next!=NULL) busca(lista->next,valor);
-    else if(lista->data==valor) {cout<<"Item encontrado!"<<endl;}
-    else {cout<<"Item nao encontrado!"<<endl;}
+    else if(lista->data==valor) {cout<<"Nó encontrado!"<<endl;}
+    else {cout<<"Nó nao encontrado!"<<endl;}
 
 }
 
@@ -41,7 +56,7 @@ void exclui(Node* lista,int valor)
     {
         lista->data=lista->next->data;
         lista->next=lista->next->next;
-        cout<<"Item excluido"<<endl;
+        cout<<"Nó deletado"<<endl;
     }
     else
     {
@@ -52,22 +67,36 @@ void exclui(Node* lista,int valor)
 int main()
 {
     //preenchimento da lista
-    Node* lista = new Node;
-    Node* no2 = new Node;
-    Node* no3 = new Node;
+    Node* head = new Node;
+    Node* node2 = new Node;
+    Node* node3 = new Node;
 
-    lista->data=1;
-    lista->next=no2;
-    no2->data=2;
-    no2->next=no3;
-    no3->data=3;
-    no3->next=NULL;
+    head->data=1;
+    head->next=node2;
+    node2->data=2;
+    node2->next=node3;
+    node3->data=3;
+    node3->next=NULL;
 
-    print(lista);//imprime os nós
-    add(lista,3);//adiciona um nó
-    print(lista);//imprime novamente
-    busca(lista,2); //busca na lista
-    exclui(lista,2); //exclui o item de valor 2 da lista
-    print(lista); //reimprime a lista
+    cout<<"Configuração inicial da lista:"<<endl;
+    print(head);//imprime os nós
+    cout<<endl<<"Tamanho: "<<length(head);
+    cout<<endl<<"Adiciona um nó no fim da lista"<<endl;
+    add(head,4);//adiciona um nó
+    print(head);//imprime novamente
+    cout<<endl<<"Tamanho: "<<length(head);
+    cout<<endl<<"Adiciona um nó no inicio da lista"<<endl;
+    head = newHead(head,0);
+    print(head);
+    cout<<endl<<"Tamanho: "<<length(head);
+    cout<<endl<<"Busca nó 2 na lista: ";
+    busca(head,2); //busca na lista
+    cout<<"Exclui nó 2 da lista: ";
+    exclui(head,2); //exclui o item de valor 2 da lista
+    cout<<"Busca nó 2 na lista: ";
+    busca(head,2); //busca na lista
+    print(head); //reimprime a lista
+    cout<<endl<<"Tamanho: "<<length(head);
+
     return 0;
 }
